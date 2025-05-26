@@ -43,8 +43,10 @@
             @endauth
 
         </div>
-        <div class="w3-center w3-padding-16">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height:50px;">
+        <div class="w3-display-container w3-center w3-padding-16">
+            <a href="{{ route('homepage') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height:60px; max-width: 220px; object-fit: contain;">
+            </a>
         </div>
     </div>
 </div>
