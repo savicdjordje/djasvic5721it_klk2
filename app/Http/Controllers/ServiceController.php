@@ -25,4 +25,13 @@ class ServiceController extends Controller
             'service' => $service
         ]);
     }
+
+    public function catalog()
+    {
+        $services = Service::where('published', true)->get();
+
+        return view('services.catalog', [
+            'services' => $services
+        ]);
+    }
 }

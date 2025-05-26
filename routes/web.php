@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
@@ -12,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[ServiceController::class, 'homepage'])->name('homepage');
 Route::get('/katalog-usluga',[ServiceController::class, 'catalog'])->name('catalog');
-Route::get('/kontakt-forma',[UserCOntroller::class, 'contact'])->name('contact');
+
+Route::controller(ContactMessageController::class)->name('contact-messages.')->prefix('/kontakt')->group(function () {
+    Route::get('/', 'create')->name('create');
+    Route::post('/', 'createSubmit')->name('createSubmit');
+});
 
 Route::controller(ServiceController::class)->name('services.')->prefix('/usluge')->group(function () {
     Route::get('/{id}', 'detail')->name('detail');
+    Route::get('/katalog-usluga','catalog')->name('catalog');
 });
 
 Route::middleware('auth')->group(function () {

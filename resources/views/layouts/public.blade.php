@@ -19,8 +19,8 @@
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="position: absolute; top: 0; right: 0;">&times;</a>
 
     <a href="{{ route('homepage') }}" onclick="w3_close()" class="w3-bar-item w3-button">Početna</a>
-    <a href="{{ route('catalog') }}" onclick="w3_close()" class="w3-bar-item w3-button">Katalog</a>
-    <a href="{{ route('contact') }}" onclick="w3_close()" class="w3-bar-item w3-button">Kontakt</a>
+    <a href="{{ route('services.catalog') }}" onclick="w3_close()" class="w3-bar-item w3-button">Katalog</a>
+    <a href="{{ route('contact-messages.create') }}" onclick="w3_close()" class="w3-bar-item w3-button">Kontakt</a>
 
     @auth
         <form method="POST" action="{{ route('logout') }}">
