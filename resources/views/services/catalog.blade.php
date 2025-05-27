@@ -14,7 +14,7 @@
                     <div class="w3-container w3-padding">
                         <h5>{{ $service->name }}</h5>
                         <p>{{ $service->description }}</p>
-                        <p><strong>Tip usluge:</strong> {{ $service->type->name }}</p>
+                        <p><strong>Tip usluge:</strong> {{ $service->type->name ?? 'Nema'}}</p>
                         <p><strong>Cena:</strong> {{ $service->price }} RSD</p>
                         <a href="{{ route('services.detail', $service->id) }}" class="w3-button w3-black w3-margin-top">Opširnije</a>
                     </div>

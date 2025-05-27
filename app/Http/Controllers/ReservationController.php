@@ -49,4 +49,70 @@ class ReservationController extends Controller
         return redirect()->route('reservations.userReservations')
                         ->with('success', 'Uspešno ste zakazali termin!');
     }
+
+    public function list()
+    {
+        $active = Reservation::where('approved', true)->get();
+
+        $archived = Reservation::where('approved', false)->get();
+
+        return view('reservations.list', compact('active', 'archived'));
+    }
+
+    public function archive($id)
+    {
+        $r = Reservation::findOrFail($id);
+        $r->approved = false;
+        $r->save();
+        return back()->with('success', 'Rezervacija arhivirana.');
+    }
+
+    public function unarchive($id)
+    {
+        $r = Reservation::findOrFail($id);
+        $r->approved = true;
+        $r->save();
+        return back()->with('success', 'Rezervacija aktivirana.');
+    }
+    public function update($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        return view('reservations.update', [
+            'reservation' => $reservation
+        ]);
+    }
+
+    public function updateSubmit(Request $request, $id)
+    {
+        $request->validate([
+            'car_brand' => 'required|string|max:255',
+            'car_model' => 'required|string|max:255',
+            'car_plate' => 'required|string|max:50',
+            'note' => 'nullable|string',
+            'scheduled_at' => 'required|date',
+        ]);
+
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update($request->only([
+            'car_brand', 'car_model', 'car_plate', 'note', 'scheduled_at'
+        ]));
+
+        return redirect()->route('admin.reservations.list')->with('success', 'Rezervacija je uspešno izmenjena.');
+    }
+
+    public function single($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        return view('reservations.single', [
+            'reservation' => $reservation
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
+
+        return redirect()->route('admin.reservations.list')->with('success', 'Rezervacija je obrisana.');
+    }
 }

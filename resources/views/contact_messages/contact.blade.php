@@ -55,3 +55,16 @@
     </div>
 </section>
 @endsection
+
+{{-- @push('scripts')
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea[name=message]',
+        menubar: false,
+        plugins: 'lists link',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+        height: 300
+    });
+</script>
+@endpush --}}

@@ -1,0 +1,23 @@
+@echo off
+echo Pokrecem instalaciju zavisnosti...
+composer install
+
+echo Kopiram .env fajl...
+copy .env.example .env
+
+echo Generisem app key...
+php artisan key:generate
+
+echo Pokrecem migracije sa seed-ovima...
+php artisan migrate:fresh --seed
+
+echo Instaliram npm pakete...
+npm install
+
+echo Gradim assets...
+npm run build
+
+echo Pokrecem Laravel server...
+php artisan serve
+
+pause

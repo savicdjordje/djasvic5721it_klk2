@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'service_type_id',
+        'image',
+        'published',
+        'featured',
+    ];
+
     public function type()
     {
         return $this->belongsTo(ServiceType::class, 'service_type_id');

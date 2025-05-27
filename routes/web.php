@@ -37,39 +37,48 @@ Route::middleware(['auth', CheckRole::class . ':admin:editor'])->name('admin.')-
 
     Route::controller(ServiceController::class)->name('services.')->prefix('/usluge')->group(function () {
         Route::get('/', 'list')->name('list');
-        Route::get('/{id}', 'single')->name('single');
         Route::get('/unesi', 'create')->name('create');
         Route::post('/unesi', 'createSubmit')->name('create-submit');
         Route::get('/izmeni/{id}', 'update')->name('update');
         Route::patch('/izmeni/{id}', 'updateSubmit')->name('update-submit');
         Route::post('/toggle-istakni/{id}', 'toggleFeatured')->name('toggle-featured');
+        Route::post('/toggle-published/{id}', 'togglePublished')->name('toggle-published');
         Route::delete('/obrisi/{id}', 'delete')->name('delete');
+        Route::get('/{id}', 'single')->name('single');
     });
 
     Route::controller(ServiceTypeController::class)->name('service-types.')->prefix('/tipovi-usluge')->group(function () {
         Route::get('/', 'list')->name('list');
-        Route::get('/{id}', 'single')->name('single');
         Route::get('/unesi', 'create')->name('create');
         Route::post('/unesi', 'createSubmit')->name('create-submit');
         Route::get('/izmeni/{id}', 'update')->name('update');
         Route::patch('/izmeni/{id}', 'updateSubmit')->name('update-submit');
         Route::delete('/obrisi/{id}', 'delete')->name('delete');
+        Route::get('/{id}', 'single')->name('single');
     });
 
     Route::controller(ReservationController::class)->name('reservations.')->prefix('/rezerviacije')->group(function () {
         Route::get('/', 'list')->name('list');
-        Route::get('/{id}', 'single')->name('single');
         Route::get('/izmeni/{id}', 'update')->name('update');
         Route::patch('/izmeni/{id}', 'updateSubmit')->name('update-submit');
         Route::post('/arhiviraj/{id}', 'archive')->name('archive');
         Route::post('/aktiviraj/{id}', 'unarchive')->name('unarchive');
+        Route::delete('/obrisi/{id}', 'delete')->name('delete');
+        Route::get('/{id}', 'single')->name('single');
     });
 
     Route::controller(UserController::class)->name('users.')->prefix('/korisnici')->group(function () {
         Route::get('/', 'list')->name('list');
-        Route::get('/{id}', 'single')->name('single');
         Route::get('/izmeni/{id}', 'update')->name('update');
         Route::patch('/izmeni/{id}', 'updateSubmit')->name('update-submit');
+        Route::delete('/obrisi/{id}', 'delete')->name('delete');
+        Route::get('/{id}', 'single')->name('single');
+    });
+
+    Route::controller(ContactMessageController::class)->name('contact-messages.')->prefix('/kontakt')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::post('/arhiviraj/{id}', 'archive')->name('archive');
+        Route::post('/aktiviraj/{id}', 'unarchive')->name('unarchive');
         Route::delete('/obrisi/{id}', 'delete')->name('delete');
     });
 });
