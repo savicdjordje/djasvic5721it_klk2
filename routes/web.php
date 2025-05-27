@@ -12,7 +12,6 @@ use App\Models\ServiceType;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[ServiceController::class, 'homepage'])->name('homepage');
-Route::get('/katalog-usluga',[ServiceController::class, 'catalog'])->name('catalog');
 
 Route::controller(ContactMessageController::class)->name('contact-messages.')->prefix('/kontakt')->group(function () {
     Route::get('/', 'create')->name('create');
@@ -20,12 +19,13 @@ Route::controller(ContactMessageController::class)->name('contact-messages.')->p
 });
 
 Route::controller(ServiceController::class)->name('services.')->prefix('/usluge')->group(function () {
-    Route::get('/{id}', 'detail')->name('detail');
     Route::get('/katalog-usluga','catalog')->name('catalog');
+    Route::get('/{id}', 'detail')->name('detail');
 });
 
 Route::middleware('auth')->group(function () {
     Route::controller(ReservationController::class)->name('reservations.')->prefix('/rezerviacije')->group(function () {
+        Route::get('/moje-rezervacije', 'userReservations')->name('userReservations');
         Route::get('/{service_id}', 'create')->name('create');
         Route::post('/{service_id}', 'createSubmit')->name('create-submit');
     });
